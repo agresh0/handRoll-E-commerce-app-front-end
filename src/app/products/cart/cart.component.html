@@ -1,0 +1,132 @@
+<!-- cart empty -->
+<div class="container mt-5 " id="empty-cart" *ngIf="cartItems.length==0" style="min-height: 100vh;">
+    <div class="row text-center" style="margin-top: 100px;">
+        <div class="col">
+            <img class="img-fluid" src="https://cakefactory24x7.com/bakery/images/emty.gif" alt="Image not found">
+            <h3 class="mt-5">oops ! Nothings here.</h3>
+            <button class="btn btn-success" routerLink="">
+                Getting back
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container mb-5" style="margin-top: 100px;" style="min-height: 100vh;" id="cart_cont">
+    <div *ngIf="cartItems.length>0">
+        <a href="wishlist">
+            <i class="fa-solid fa-plus"></i>
+            Add from wishlist
+        </a>
+    </div>
+    <div class="row" >
+        <div class="col-lg-8 " >
+            <div class="row border mb-2 p-2 rounded" *ngFor="let product of cartItems;">
+                <div class="col-lg-3" >
+                    <img class="productImg "
+                        [src]="product.image"
+                        alt="">
+                </div>
+                <div class="col-lg-9">
+                    <h5><b>{{product.title}}</b></h5>
+                    <div class="desc">
+                        <p>
+                            {{product.description}}
+                        </p>
+                    </div>
+                    <div class="price">
+                        ${{product.price}}
+                    </div>
+                    <div class="cart_buttons mt-2">
+                        <a href="" class="text-danger" (click)="removeCartItem(product)" id="cart_remove">REMOVE</a>&nbsp;&nbsp;
+                        <div class="vr" style="height: 100%;"></div>
+                        <span>&nbsp;&nbsp;<a href="" class="text-danger">SAVE FOR LATER</a></span>
+                    </div>
+                </div>
+            </div>
+        </div  >
+
+        <div class="col-lg-4 " *ngIf="cartItems.length>0" >
+            <div class="border rounded-4 p-3 shadow "  id="check_out">
+                <h3>TOTAL</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="total_mrp mb-2">Total MRP</div>
+                        <div class="disc_mrp mb-2">Discount on MRP</div>
+                        <div class="coupen_desc"> Coupen Discount</div>
+                    </div>
+                    <div class="col-lg-6 text-end mb-4">
+                        <div class="mb-2" id="total_mrp ">${{grandTotal}}</div>
+                        <div class="mb-2" id="disc_mrp">${{discount}}</div>
+                        <div class="" id="coupen_desc">
+                            <a class="text-danger" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
+                                aria-expanded="false" aria-controls="multiCollapseExample1">Apply Discount</a>
+                        </div>
+                    </div>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                            <input type="text" placeholder="Enter Promocode." class="form-control me-4">
+                               <div class="" [ngSwitch]="grandTotal">
+                                   <span *ngSwitchCase="10.99"><img (click)="discount50Per($event.target)" class="me-5" width="100px" src="https://banner2.cleanpng.com/20190608/vbh/kisspng-internet-coupon-voucher-discounts-and-allowances-l-5cfb986b33dc41.3604185915599924272124.jpg" alt=""></span>
+                                   <span *ngSwitchCase="109.95"><img (click)="discount75Per($event.target)" width="100px" src="https://static.vecteezy.com/system/resources/previews/011/448/854/non_2x/discount-coupon-or-voucher-promo-code-gift-voucher-and-coupons-template-illustration-vector.jpg" alt=""></span>
+                                  <span *ngSwitchDefault> <img (click)="discount5Per($event.target)" class="me-5"width="100px" src="https://img.freepik.com/premium-vector/promo-code-coupon-code-icon-banner-sign-vector-illustration_186930-927.jpg?w=2000" alt=""></span>
+
+                               </div>                            
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row sub_total">
+                        <div class="col-lg-6"> <b>Total Amount</b></div>
+                            <div class="col-lg-6 text-end"><b>{{updateValue?updatedTotal:grandTotal}}</b></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger col-12 mt-3 "data-bs-toggle="modal" data-bs-target="#staticBackdrop">CONTINUE</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD NEW ADDRESS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">                    
+                    <form>
+                        <div class="mb-3">
+                          <!-- <label for="exampleInputEmail1" class="form-label">Email address</label> -->
+                          <label>CONTACT DETAILS</label><hr>
+                          <input type="text" placeholder="Name" class="form-control" id="exampleInputName" aria-describedby="nameHelp">
+                          <input type="text" placeholder="Mobile No" class="form-control mt-2" id="exampleInputMobile" aria-describedby="mobileHelp">
+                            <label class="mt-3">ADDRESS</label>
+                            <input type="text" placeholder="Pin Code" class="form-control mt-2" id="exampleInputPin" aria-describedby="PinHelp">
+                            <input type="text" placeholder="Address(House No,Building,Street,Area)" class="form-control mt-2" id="exampleInputAddress" aria-describedby="AddressHelp">
+                            <input type="text" placeholder="Locality / Town" class="form-control mt-2" id="exampleInputLocality" aria-describedby="LocalityHelp">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="text" placeholder="District" class="form-control mt-2" aria-describedby="districtHelp">
+
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" placeholder="State" class="form-control mt-2"  aria-describedby="keralaHelp">
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                      </form>
+                </div>
+        <div class="modal-footer">
+            <button type="button" (click)="proceed()" class="btn btn-danger col-12 mt-3 "data-bs-toggle="modal" data-bs-dismiss="modal">PROCEED TO SHIPPING</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,27 @@
+.productImg{
+width: 150px;
+    
+}
+.cart_buttons{
+    font-size: smaller;
+}
+a{
+    text-decoration: none;
+    /* color: black; */
+}
+
+
+#coupen_desc{
+    font-size: small;
+}
+#check_out{
+    background-color: #fafafa;
+}
+#cart_remove:hover{
+    background-color: wheat;
+    transition: 1s;
+}
+#cart_cont{
+    margin-top: 6rem;
+}
+

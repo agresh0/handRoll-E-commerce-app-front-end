@@ -1,0 +1,21 @@
+.card-img-top{
+    width: 150px;
+    height: 200px;
+    transition: 0.5s;
+
+}
+.card-img-top:hover{
+    transform: scale(1.25);
+    transition: 0.7s;
+}
+#back_image{
+    
+    width: 100rem;
+    height: 10rem;
+    object-fit: none;
+}
+
+img{
+    /* width: 200vh; */
+    height: 75vh;
+}
